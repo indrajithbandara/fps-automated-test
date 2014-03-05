@@ -51,6 +51,7 @@ def parse_params_of_argv(step, browser):
 @step(u'I go to login page')
 def given_i_go_to_loginpage(step):
     world.driver.get(predefined['login_url'])
+    time.sleep(3)
 
 
 @step(u'I fill in the credentials fields "([^"]*)" "([^"]*)"')
@@ -76,7 +77,6 @@ def submit_pass(step):
     world.driver.get(predefined['check_url'])
     world.driver.execute_script('window.focus();')
     # wait for all to load
-    time.sleep(10)
 
 
 @step(u'I insert the fps javascript')
@@ -93,6 +93,7 @@ def javascript_insert_pass(step):
             .replace('\t','').replace("\n", "").replace('"','\\"'))
     #logging.info("javascript = "+javascript)
     world.driver.execute_script(javascript)
+    time.sleep(5)
 
 
 @step(u'I scroll (\d+) times to ensure data is loaded')
