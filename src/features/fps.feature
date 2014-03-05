@@ -7,7 +7,6 @@ Given I have initial setup: Chrome
      And I insert the fps javascript
      And I fill in the credentials fields "id_username" "id_password"
      And I submit
-     And I go to the check page
      And I insert the fps javascript
      And I scroll 50 times to ensure data is loaded
      And I scroll again to extract the fps values
