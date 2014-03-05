@@ -14,7 +14,7 @@ predefined['login_url'] = "http://dev.ubervu.local/#/boards/1"
 predefined['check_url'] = "http://dev.ubervu.local/#/boards/1"
 
 #define how many widgets you wish to scroll
-predefined['number_of_widgets'] = 5
+predefined['number_of_widgets'] = 4
 
 #define the step you wish to perform the initial scroll
 predefined['scroll_step'] = 200 # this is the number of px
