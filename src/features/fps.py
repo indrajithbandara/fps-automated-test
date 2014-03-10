@@ -167,6 +167,7 @@ def avarage_lookup(step,avg):
     # but Firefox has a much larger value the Chrome for std
     logging.info("numpy mean: %s ,std: %s" % (mean,std))
     logging.info("values are: %s " % (world.fps_values))
+    logging.info("len(values)=: %s" % len(world.fps_values))
     world.driver.close()
     assert mean > int(avg)
 
