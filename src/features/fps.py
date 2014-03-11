@@ -96,27 +96,35 @@ def javascript_insert_pass(step):
     time.sleep(5)
 
 
-@step(u'I scroll (\d+) times to ensure data is loaded')
-def scroll(step, times):
-    #perform initial scrolling
-    for x in range(0, int(times)):
-        for div in range (0,predefined['number_of_widgets']):
-            world.driver.execute_script('document.getElementsByClassName\
-                ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
-                [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,x * predefined['scroll_step']))
-            # logging.info("scrolling widget: %d for %d time" % (div,x))
-
-    elems = []
-    #insert id on each element for easy retrieval
-    for div in range (0,predefined['number_of_widgets']):
-        elems.append(world.driver.execute_script('return document.\
+def _get_number_of_mentions(div):
+    return world.driver.execute_script('return document.\
             getElementsByClassName("mention-container-wrapper")[%d].\
             getElementsByClassName("mentions")[0].getElementsByTagName("ul")[0].\
-            children.length' % (div)))
+            children.length' % (div))
+
+@step(u'I scroll until each timeline has (\d+) mentions')
+def scroll(step, mentions):
+    #perform initial scrolling
+    step = [0] * predefined['number_of_widgets']
+    exit_condition = True
+    while exit_condition:
+        exit_condition = False
+        for div in range (predefined['number_of_widgets']):
+            if _get_number_of_mentions(div) < mentions:
+                exit_condition = True
+                world.driver.execute_script('document.getElementsByClassName\
+                    ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
+                    [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,step[div] * predefined['scroll_step']))
+            step[div] += 1
+
+    #insert id on each element for easy retrieval
+    elems = []
+    for div in range (predefined['number_of_widgets']):
+        elems.append(_get_number_of_mentions(div))
         world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].id = "ul_scroll_%d"' % (div,div))
-        for li in range(0, elems[div]):
+        for li in range(elems[div]):
             world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].children[%d].id = "ul_scroll_%d_%d"' % (div,li,div,li))
@@ -124,10 +132,10 @@ def scroll(step, times):
 
     #extract the elements we need to hover over
     li_hover = []
-    for div in range (0,predefined['number_of_widgets']):
+    for div in range (predefined['number_of_widgets']):
         element_to_hover_over = world.driver.find_element_by_id("ul_scroll_%d" % (div))
         li_hover.append([])
-        for li in range(0, elems[div]):
+        for li in range(elems[div]):
             element_to_hover_over = world.driver.find_element_by_id("ul_scroll_%d_%d" % (div,li))
             li_hover[div].append(element_to_hover_over)
     world.elems = elems
