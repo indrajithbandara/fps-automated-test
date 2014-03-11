@@ -140,10 +140,11 @@ def fps_values(step):
     elems = world.elems
     li_hover = world.li_hover
     sleep = 0
-    #start logging the fps values
+    # Scroll the timeline up
     for div in range (predefined['number_of_widgets']):
         ActionChains(world.driver).move_to_element(li_hover[div][0]).perform()
-    time.sleep(1)
+    time.sleep(3)
+    #start logging the fps values
     world.driver.execute_script('insertIntoFpsArr = true');
     time.sleep(1)
     for div in range (predefined['number_of_widgets']):
