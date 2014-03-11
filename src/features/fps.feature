@@ -7,6 +7,6 @@ Given I have initial setup: Chrome
      And I fill in the credentials fields "id_username" "id_password"
      And I submit
      And I insert the fps javascript
-     And I scroll 50 times to ensure data is loaded
+     And I scroll 100 times to ensure data is loaded
      And I scroll again to extract the fps values
      Then the avarage fps valus should be over 25

@@ -104,7 +104,7 @@ def scroll(step, times):
             world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,x * predefined['scroll_step']))
-            logging.info("scrolling widget: %d for %d time" % (div,x))
+            # logging.info("scrolling widget: %d for %d time" % (div,x))
 
     elems = []
     #insert id on each element for easy retrieval
