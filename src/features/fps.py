@@ -122,7 +122,7 @@ def scroll(step, min_mentions):
             world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].children[%d].id = "ul_scroll_%d_%d"' % (div,li,div,li))
-        logging.info("number of elements in widget[%d]: %d" % (div,elems[div]))
+        # logging.info("number of elements in widget[%d]: %d" % (div,elems[div]))
 
     #extract the elements we need to hover over
     li_hover = []
@@ -174,7 +174,7 @@ def avarage_lookup(step,avg):
     # but Firefox has a much larger value the Chrome for std
     logging.info("numpy mean: %s ,std: %s" % (mean,std))
     logging.info("values are: %s " % (world.fps_values))
-    logging.info("len(values)=: %s" % len(world.fps_values))
+    logging.info("len(values): %s" % len(world.fps_values))
     world.driver.close()
     assert mean > int(avg)
 
