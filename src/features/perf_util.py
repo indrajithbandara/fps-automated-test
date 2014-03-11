@@ -10,9 +10,6 @@ predefined['local_javascript_url'] = "javascript/local_perf.js"
 # define the login page
 predefined['login_url'] = "http://dev.ubervu.local/#/boards/1"
 
-# define the check page
-predefined['check_url'] = "http://dev.ubervu.local/#/boards/1"
-
 #define how many widgets you wish to scroll
 predefined['number_of_widgets'] = 4
 

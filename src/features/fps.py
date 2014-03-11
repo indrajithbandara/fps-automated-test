@@ -69,15 +69,7 @@ def submit_pass(step):
     button.click()
     world.driver.execute_script('window.focus();')
     # wait for the magic login cookie
-    time.sleep(10)
-
-
-@step(u'I go to the check page')
-def submit_pass(step):
-    world.driver.get(predefined['check_url'])
-    world.driver.execute_script('window.focus();')
-    # wait for all to load
-
+    time.sleep(12)
 
 @step(u'I insert the fps javascript')
 def javascript_insert_pass(step):
@@ -115,7 +107,7 @@ def scroll(step, min_mentions):
                 exit_condition = True
                 world.driver.execute_script('document.getElementsByClassName\
                     ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
-                    [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,step[div] * predefined['scroll_step']))
+                    [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,step[div] * predefined['scroll_step'] * 10))
             step[div] += 1
 
     #insert id on each element for easy retrieval
@@ -149,9 +141,13 @@ def fps_values(step):
     li_hover = world.li_hover
     sleep = 0
     #start logging the fps values
+    for div in range (predefined['number_of_widgets']):
+        ActionChains(world.driver).move_to_element(li_hover[div][0]).perform()
+    time.sleep(1)
     world.driver.execute_script('insertIntoFpsArr = true');
-    for div in range (0,predefined['number_of_widgets']):
-        for li in range(0, elems[div]-1):
+    time.sleep(1)
+    for div in range (predefined['number_of_widgets']):
+        for li in range(elems[div]-1):
             ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
             # add a minimum sleep give time to perform
             # here is a trial mimic of a normal user which actualy has
