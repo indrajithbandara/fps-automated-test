@@ -103,14 +103,15 @@ def _get_number_of_mentions(div):
             children.length' % (div))
 
 @step(u'I scroll until each timeline has (\d+) mentions')
-def scroll(step, mentions):
+def scroll(step, min_mentions):
     #perform initial scrolling
     step = [0] * predefined['number_of_widgets']
+    min_mentions = int(min_mentions)
     exit_condition = True
     while exit_condition:
         exit_condition = False
-        for div in range (predefined['number_of_widgets']):
-            if _get_number_of_mentions(div) < mentions:
+        for div in range(predefined['number_of_widgets']):
+            if _get_number_of_mentions(div) < min_mentions:
                 exit_condition = True
                 world.driver.execute_script('document.getElementsByClassName\
                     ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
