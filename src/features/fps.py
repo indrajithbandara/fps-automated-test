@@ -32,21 +32,22 @@ def parse_params_of_argv(step, browser):
         logging.info("Start new test with Chrome")
         chromedriver = predefined['chromedriver']
         options = webdriver.ChromeOptions()
-        options.add_argument('--start-maximized')
         # next line it can be used together with setting the javascript
         # value of useHighAnimation to true, for debug purpose only
         # options.add_argument("--show-fps-counter=true")
-        world.driver = webdriver.Chrome(executable_path = chromedriver, \
-            chrome_options = options)
+        world.driver = webdriver.Chrome(executable_path = chromedriver)
 
     elif (browser.lower() == "firefox"):
         world.driver = webdriver.Firefox()
-        world.driver.maximize_window()
         logging.info("Start new test with Firefox")
 
     else:
        logging.info("Unsupported browser: %s" % (browser))
        raise Exception("Unsupported browser: %s" % (browser))
+
+    # Maximize window
+    world.driver.set_window_size(1440, 900)
+    world.driver.maximize_window()
 
 @step(u'I go to login page')
 def given_i_go_to_loginpage(step):
